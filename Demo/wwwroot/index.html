@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="js/angular.min.js"></script>
+    <script src="scripts/repeat.js"></script>
+    <link rel="stylesheet" href="css/myStyle.css" />
+</head>
+<body>
+    <div ng-app="myModule">
+        <div ng-controller="myCtrl">
+            {{message}}
+        </div>
+        <ul ng-controller="repCtrl">
+            <li ng-repeat="x in names">
+                {{x}}
+            </li>
+        </ul>
+        <div ng-controller="myService" style="border: 1px solid black; padding-left: 15px; display: none;">
+            <p><b>Controller : myService</b></p>
+            <p>Data : {{content}}</p>
+            <p>Status : {{statuscode}}</p>
+            <p>StatusText : {{statustext}}</p>
+        </div>
+        <div ng-controller="myServiceErr" style="border:1px solid black; padding-left:15px; display:none;">
+            <p><b>Controller : myServiceErr</b></p>
+            <p>Data : {{content}}</p>
+            <p>Status : {{statuscode}}</p>
+            <p>StatusText : {{statustext}}</p>
+        </div>
+        <div ng-controller="myServJson" style="border:1px solid black; padding-left:15px;">
+            <button ng-click="hideShwFunc()">Click me</button>
+            <div ng-show="showMe">
+                <select ng-model="selectedId" ng-options="y.Name for (x, y) in responseData">
+                </select>
+                <br />
+                <select ng-model="selectedId" ng-change="myFunc()">
+                    <option ng-value="0">--select--</option>
+                    <option ng-repeat="x in responseData" ng-value="{{x}}">{{x.Name}}</option>
+                </select>
+                <label>
+                    Selected customer id : {{selectedId.Id}} and Customer Name : {{selectedId.Name}}
+                </label>
+                <br />
+                <label>
+                    Selected customer City : {{selectedId.City}} and Customer Country Name : {{selectedId.Country}}
+                </label>
+            </div>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Sr</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in responseData | orderBy : 'Country'">
+                        <td>
+                            {{
+ $index + 1
+                            }}
+                        </td>
+                        <td>{{x.Name}}</td>
+                        <td>{{x.City}}</td>
+                        <td>{{x.Country | uppercase}}</td>
+                    </tr>
+                    <!--<tr class="active-row">
+                        <td>Melissa</td>
+                        <td>5150</td>
+                    </tr>-->
+                    <!-- and so on... -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>
